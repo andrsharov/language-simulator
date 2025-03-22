@@ -34,3 +34,11 @@ cd ./language-simulator
 ```bash
 /usr/bin/python3 -m venv .venv
 ```
+* Активирую виртуальное окружение
+```bash
+source .venv/bin/activate
+```
+* Устанавливаю зависимости
+```bash
+pip3 install -r requirements.txt
+```
