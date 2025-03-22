@@ -32,7 +32,7 @@ cd ./language-simulator
 ```
 * Устанавливаю виртуальное окружение
 ```bash
-/usr/bin/python3 -m venv .venv
+python3 -m venv .venv
 ```
 * Активирую виртуальное окружение
 ```bash
@@ -41,4 +41,12 @@ source .venv/bin/activate
 * Устанавливаю зависимости
 ```bash
 pip3 install -r requirements.txt
+```
+* Запускаю мигратор
+```commandline
+python3 app/manage.py migrate
+```
+* Запускаю проект
+```commandline
+python3 app/manage.py runserver --insecure
 ```
