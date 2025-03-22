@@ -43,10 +43,11 @@ source .venv/bin/activate
 pip3 install -r requirements.txt
 ```
 * Запускаю мигратор
-```commandline
+```bash
 python3 app/manage.py migrate
 ```
 * Запускаю проект
-```commandline
+```bash
 python3 app/manage.py runserver --insecure
 ```
+* Проект запущен и доступен по ссылке http://127.0.0.1:8000/
