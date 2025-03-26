@@ -46,6 +46,10 @@ pip3 install -r requirements.txt
 ```bash
 python3 app/manage.py migrate
 ```
+* Создаю суперпользоваетеля
+```bash
+python3 manage.py createsuperuser
+```
 * Запускаю проект
 ```bash
 python3 app/manage.py runserver --insecure
