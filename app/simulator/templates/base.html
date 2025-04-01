@@ -17,20 +17,40 @@
     <link rel="icon" type="image/png" href="{% static 'favicon/favicon-76.png' %}" sizes="76x76" >
     <link rel="icon" type="image/png" href="{% static 'favicon/favicon-96.png' %}" sizes="96x96" >
 
-
+{% load active_link_tags %}
 </head>
-
 <body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+  <div class="container-xl">
+    <a class="navbar-brand" href="#">
+        <img src="{% static 'favicon/favicon-60.png' %}" alt="Language Simulator" width="60" height="60">
+        Language Simulator
+    </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link {% active_link 'index' strict=True %}" href="{% url 'index' %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Pricing</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% active_link 'about' strict=True %}" href="{% url 'about' %}">About</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
 <main>
-    <div class="container">
-        <header class="border-bottom">
-            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-                <div class="fs-2 mb-3">
-                    <img src="{% static 'calculator.svg' %}" alt="Проект про математику" width="32" height="32"/>
-                    <span>Проект про математику</span>
-                </div>
-            </a>
-        </header>
+
         <div class="p-5 mb-4 bg-light rounded-3" id="title-box">
             <div class="container-fluid py-5">
                 <h1 class="display-1 fw-bold">{% block page-title %}{% endblock %}</h1>
@@ -41,5 +61,7 @@
         <footer class="footer pt-3 mt-4 text-muted border-top">© 2025</footer>
     </div>
 </main>
+<!-- JS -->
+<script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 </body>
 </html>

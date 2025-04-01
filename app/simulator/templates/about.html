@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block page-title %}
+Тренажер для изучения английского языка
+{% endblock %}
+
+
+{% block content %}
+<h2 class="pb-2 border-bottom">Что можете сделать вы?</h2>
+    <div class="row g-4 py-5 row-cols-1 row-cols-lg-2">
+        <div class="col-lg-4">
+            <h4 class="py-1">Добавить ещё одну форму</h4>
+        </div>
+        <div class="col-lg-8">
+            <p>Чтобы получить максимальную оценку по проекту, нужно две страницы, которые <span class="fst-italic">показывают</span>
+            контент, а две страницы, которые <span class="fst-italic">принимают</span> контент. Одна страница с
+            POST-запросом создана — это <a href="/add-term">форма сбора терминов</a>. Добавьте ещё одну форму и view, обрабатывающий её!</p>
+        </div>
+    </div>
+{% endblock %}
