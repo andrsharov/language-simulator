@@ -2,11 +2,13 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>{% block pagetitle %}{% endblock %}</title>
+    <title>{% block page-title %}{% endblock %}</title>
     <!-- load static -->
     {% load static %}
     <!-- CSS -->
     <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/base.css' %}" rel="stylesheet">
+    {% block page-css %}{% endblock %}
     <!-- Favicons -->
     <link rel="icon" type="image/png" href="{% static 'favicon/favicon-16.png' %}" sizes="16x16" >
     <link rel="icon" type="image/png" href="{% static 'favicon/favicon-32.png' %}" sizes="32x32" >
@@ -20,12 +22,12 @@
 {% load active_link_tags %}
 </head>
 <body>
-<!-- Navbar -->
+<!-- BEGIN Navbar -->
 <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
   <div class="container-xl">
-    <a class="navbar-brand" href="#">
-        <img src="{% static 'favicon/favicon-60.png' %}" alt="Language Simulator" width="60" height="60">
-        Language Simulator
+    <a class="navbar-brand" href="/">
+        <img src="{% static 'favicon/favicon-60.png' %}" alt="Anki Simulator" width="60" height="60">
+        ANKI Тренажер
     </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -33,13 +35,23 @@
       <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link {% active_link 'index' strict=True %}" href="{% url 'index' %}">Home</a>
+          <a class="nav-link {% active_link 'index' strict=True %}" href="{% url 'index' %}">Главная</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Features</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Pricing</a>
+        </li>
+          <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Anki карточки
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item {% active_link 'add_card' strict=True %}" href="{% url 'add_card' %}">Добавить карточку</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item {% active_link 'cards_list' strict=True %}" href="{% url 'cards_list' %}">Список карточек</a></li>
+          </ul>
         </li>
         <li class="nav-item">
           <a class="nav-link {% active_link 'about' strict=True %}" href="{% url 'about' %}">About</a>
@@ -48,17 +60,15 @@
     </div>
   </div>
 </nav>
-
+<!-- END Navbar -->
 <main>
+<div class="container">
+{% block page-lead %}{% endblock %}
 
-        <div class="p-5 mb-4 bg-light rounded-3" id="title-box">
-            <div class="container-fluid py-5">
-                <h1 class="display-1 fw-bold">{% block page-title %}{% endblock %}</h1>
-                <p class="col-md-8 fs-4">{% block page-lead %}{% endblock %}</p>
-            </div>
-        </div>
+
         {% block content %}{% endblock %}
         <footer class="footer pt-3 mt-4 text-muted border-top">© 2025</footer>
+    </div>
     </div>
 </main>
 <!-- JS -->
