@@ -12,8 +12,35 @@
 
 {% block content %}
 
-
-<h2 class="mt-4">Тут выведем список карточек</h2>
- <p>TODO.</p>
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Картинка</th>
+      <th scope="col">Слово на английском</th>
+      <th scope="col">Слово на русском</th>
+      <th scope="col">Дата добавления</th>
+    </tr>
+  </thead>
+        <tbody class="table-group-divider">
+            {% for card in cards %}
+            <tr>
+                <th scope="row">
+                    {% if card.image %}
+                        <img src="{{ card.image.url }}" alt="{{ card.english_word }}" class="card-image">
+                    {% else %}
+                        Нет изображения
+                    {% endif %}
+                </th>
+                <td>{{ card.english_word }}</td>
+                <td>{{ card.russian_word }}</td>
+                <td>{{ card.created_at }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">Нет доступных карточек. Добавьте первую!</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
 {% endblock %}
