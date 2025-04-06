@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.db.models import Count, Case, When, IntegerField
 from django.urls import reverse
 from django.contrib import messages
 from .forms import CardForm
@@ -74,4 +75,45 @@ def exercise_card(request):
     return render(request, 'exercise_card.html', {
         'card': current_card,
         'user_answer': user_answer,
+    })
+
+
+def stats(request):
+    # Получаем статистику по всем карточкам
+    cards_stats = EnglishCard.objects.annotate(
+        total_attempts=Count('statistics'),
+        successful_attempts=Count(
+            Case(
+                When(statistics__is_successful=True, then=1),
+                output_field=IntegerField()
+            )
+        ),
+        failed_attempts=Count(
+            Case(
+                When(statistics__is_successful=False, then=1),
+                output_field=IntegerField()
+            )
+        )
+    ).order_by('id')
+
+    # Рассчитываем процент успешных попыток для каждой карточки
+    total_success_rate = 0
+    cards_with_attempts = 0
+
+    for card in cards_stats:
+        if card.total_attempts > 0:
+            card.success_rate = round((card.successful_attempts / card.total_attempts) * 100)
+            total_success_rate += card.success_rate
+            cards_with_attempts += 1
+        else:
+            card.success_rate = 0
+
+    # Рассчитываем средний процент успеха
+    average_success_rate = round(total_success_rate / cards_with_attempts) if cards_with_attempts > 0 else 0
+
+    return render(request, 'stats.html', {
+        'cards_stats': cards_stats,
+        'total_cards': EnglishCard.objects.count(),
+        'total_attempts': CardStatistics.objects.count(),
+        'average_success_rate': average_success_rate,
     })

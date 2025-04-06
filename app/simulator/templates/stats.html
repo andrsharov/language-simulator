@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block page-title %}
+Статистика
+{% endblock %}
+
+{% block page-css %}
+<link href="{% static 'css/stats.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Статистика обучения</h1>
+
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Всего карточек</h5>
+                    <p class="card-text display-4">{{ total_cards }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Всего попыток</h5>
+                    <p class="card-text display-4">{{ total_attempts }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Средний % успеха</h5>
+                         <p class="card-text display-4">{{ average_success_rate }}%</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Русское слово</th>
+                            <th>Английское слово</th>
+                            <th>Успешные попытки</th>
+                            <th>Неуспешные попытки</th>
+                            <th>Всего попыток</th>
+                            <th>% успеха</th>
+                            <th>Прогресс</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for card in cards_stats %}
+                        <tr>
+                            <td>{{ card.id }}</td>
+                            <td>{{ card.russian_word }}</td>
+                            <td>{{ card.english_word }}</td>
+                            <td class="text-success">{{ card.successful_attempts }}</td>
+                            <td class="text-danger">{{ card.failed_attempts }}</td>
+                            <td>{{ card.total_attempts }}</td>
+                            <td>
+                                <div class="progress">
+                                    <div class="progress-bar bg-success"
+                                         role="progressbar"
+                                         style="width: {{ card.success_rate }}%"
+                                         aria-valuenow="{{ card.success_rate }}"
+                                         aria-valuemin="0"
+                                         aria-valuemax="100">
+                                        {{ card.success_rate }}%
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                {% if card.total_attempts > 0 %}
+                                    {% if card.success_rate >= 80 %}
+                                        <span class="badge bg-success">Отлично</span>
+                                    {% elif card.success_rate >= 50 %}
+                                        <span class="badge bg-info">Хорошо</span>
+                                    {% else %}
+                                        <span class="badge bg-warning text-dark">Требует работы</span>
+                                    {% endif %}
+                                {% else %}
+                                    <span class="badge bg-secondary">Нет данных</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="8" class="text-center">Нет данных для отображения</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-3 text-center">
+        <a href="{% url 'index' %}" class="btn btn-outline-primary">
+            <i class="bi bi-house"></i> На главную
+        </a>
+    </div>
+</div>
+
+{% endblock %}
