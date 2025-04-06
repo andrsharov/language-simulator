@@ -67,10 +67,25 @@
 
 
         {% block content %}{% endblock %}
-        <footer class="footer pt-3 mt-4 text-muted border-top">© 2025</footer>
     </div>
     </div>
 </main>
+
+<div class="container">
+  <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+    <div class="col-md-4 d-flex align-items-center">
+      <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1" aria-label="Bootstrap">
+        <svg class="bi" width="30" height="24" aria-hidden="true"><use xlink:href="#bootstrap"/></svg>
+      </a>
+      <span class="mb-3 mb-md-0 text-body-secondary">&copy; 2025 <a class="text-body-secondary" href="https://github.com/andrsharov/" aria-label="@andrsharov">Andrei Sharov</a></span>
+    </div>
+
+    <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+      <li class="ms-3"><a class="text-body-secondary" href="https://github.com/andrsharov/language-simulator/" aria-label="GitHub"><img src="{% static 'images/GitHub_Logo.png' %}" class="img-fluid" alt="GitHub" width="100" height="41"></a></li>
+    </ul>
+  </footer>
+</div>
+
 <!-- JS -->
 <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 </body>
