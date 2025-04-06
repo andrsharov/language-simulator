@@ -1,20 +1,30 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block page-title %}
-Тренажер для изучения английского языка
+О проекте
 {% endblock %}
 
+{% block page-css %}
+<link href="{% static 'css/about.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block page-lead %}
+<div class="container">
+<h1 class="text-left mb-4">О проекте</h1>
+</div>
+{% endblock %}
 
 {% block content %}
-<h2 class="pb-2 border-bottom">Что можете сделать вы?</h2>
-    <div class="row g-4 py-5 row-cols-1 row-cols-lg-2">
-        <div class="col-lg-4">
-            <h4 class="py-1">Добавить ещё одну форму</h4>
-        </div>
-        <div class="col-lg-8">
-            <p>Чтобы получить максимальную оценку по проекту, нужно две страницы, которые <span class="fst-italic">показывают</span>
-            контент, а две страницы, которые <span class="fst-italic">принимают</span> контент. Одна страница с
-            POST-запросом создана — это <a href="/add-term">форма сбора терминов</a>. Добавьте ещё одну форму и view, обрабатывающий её!</p>
-        </div>
-    </div>
+<div class="container">
+ <p class="card-text">
+     Данный проект реализует веб-сервис на тему изучения английского языка.<br />
+     Данный проект написан на языке Python версии 3.12.<br />
+     Используются фреймворки Django и Boostrap.<br />
+     ANKI карточки хранятся в базе данных SQLite3.<br />
+     Картинки от ANKI карточек хранятся в директории проекта <b>media/cards_images/</b>.<br />
+ </p>
+</div>
+
 {% endblock %}
