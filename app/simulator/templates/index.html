@@ -24,4 +24,39 @@
 
 {% block content %}
 
+    {% if random_cards %}
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for card in random_cards %}
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    {% if card.image %}
+                    <img src="{{ card.image.url }}" class="card-img-top" alt="{{ card.english_word }}" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                    <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                        <i class="bi bi-image text-muted" style="font-size: 3rem;"></i>
+                    </div>
+                    {% endif %}
+
+                    <div class="card-body">
+                        <h5 class="card-title">{{ card.english_word }}</h5>
+                        <p class="card-text text-muted">{{ card.russian_word }}</p>
+                    </div>
+
+                    <div class="card-footer bg-transparent">
+                        <small class="text-muted">Добавлено: {{ card.created_at|date:"d.m.Y" }}</small>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Карточек пока нет!</h4>
+            <p>Добавьте первую карточку, чтобы начать обучение.</p>
+            <hr>
+            <a href="{% url 'add_card' %}" class="btn btn-success">Добавить карточку</a>
+        </div>
+    {% endif %}
+</div>
+
 {% endblock %}
