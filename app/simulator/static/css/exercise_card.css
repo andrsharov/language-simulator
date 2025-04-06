@@ -1,0 +1,40 @@
+    /* Стили для картинки карточки */
+    .card-img-container {
+        height: 300px;
+        background-color: #f8f9fa;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .card-img-fit {
+        max-height: 100%;
+        max-width: 100%;
+        object-fit: contain;
+    }
+
+    /* Стили для формы */
+    .form-control-lg {
+        font-size: 1.25rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .alert {
+        margin-bottom: 1.5rem;
+    }
+
+    #userAnswer {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    /* Анимация появления карточки */
+    @keyframes cardAppear {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+        animation: cardAppear 0.3s ease-out;
+    }
