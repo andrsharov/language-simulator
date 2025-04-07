@@ -1,3 +1,7 @@
+"""
+Create your models here.
+"""
+
 from django.db import models
 from django.core.validators import MinLengthValidator
 from django.utils import timezone
@@ -5,6 +9,9 @@ from django.utils import timezone
 # Create your models here.
 
 class EnglishCard(models.Model):
+    """
+    Модель, описывающая таблицу с ANKI карточками
+    """
     russian_word = models.CharField(
         max_length=100,
         verbose_name="Слово на русском",
@@ -31,6 +38,9 @@ class EnglishCard(models.Model):
         return f"{self.russian_word} - {self.english_word}"
 
 class CardStatistics(models.Model):
+    """
+    Модель, описывающая таблицу с успешными/не успешными попытками по каждой карточке
+    """
     card = models.ForeignKey(
         'EnglishCard',
         on_delete=models.CASCADE,

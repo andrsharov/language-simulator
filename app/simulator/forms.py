@@ -1,7 +1,14 @@
+"""
+forms.py
+"""
+
 from django import forms
 from .models import EnglishCard
 
 class CardForm(forms.ModelForm):
+    """
+    Класс, который описывает форму добавления ANKI карточки
+    """
     class Meta:
         model = EnglishCard
         fields = ['russian_word', 'english_word', 'image']
@@ -17,12 +24,18 @@ class CardForm(forms.ModelForm):
         }
 
     def clean_russian_word(self):
+        """
+        Проверка на русские буквы
+        """
         word = self.cleaned_data['russian_word']
         if not word.isalpha():
             raise forms.ValidationError("Используйте только буквы русского алфавита")
         return word.capitalize()
 
     def clean_english_word(self):
+        """
+        Проверка на английские буквы
+        """
         word = self.cleaned_data['english_word']
         if not all(c.isalpha() or c.isspace() for c in word):
             raise forms.ValidationError("Use only English letters")

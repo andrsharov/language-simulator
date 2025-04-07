@@ -1,23 +1,39 @@
+"""
+Create your views here.
+"""
+
+import random
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Count, Case, When, IntegerField
 from django.urls import reverse
 from django.contrib import messages
 from .forms import CardForm
 from .models import EnglishCard, CardStatistics
-import random
 
-# Create your views here.
+
 
 def index(request):
+    """
+    Функция выводящая шаблон и данные главной страницы index.html
+    Реализован случайный вывод 3-х произвольных карточек
+    """
     all_cards = list(EnglishCard.objects.all())
     random_cards = random.sample(all_cards, min(3, len(all_cards))) if all_cards else []
     return render(request, "index.html",{'random_cards': random_cards})
 
 def about(request):
+    """
+    Функция выводящая шаблон "О проекте" - about.html
+    Только вывод текстовой информации.
+    База данных не задействуется
+    """
     return render(request, "about.html")
 
 
 def add_card(request):
+    """
+    Функция выводящая форму и получающая данные от формы
+    """
     if request.method == 'POST':
         form = CardForm(request.POST, request.FILES)
         if form.is_valid():
@@ -29,11 +45,17 @@ def add_card(request):
     return render(request, 'add_card.html', {'form': form})
 
 def cards_list(request):
+    """
+    Функция выводящая шаблон и список карточек
+    """
     cards = EnglishCard.objects.all().order_by('-created_at')
     return render(request, 'cards_list.html', {'cards': cards})
 
 
 def exercise_card(request):
+    """
+    Функция выводящая форму и получающая данные от формы упражнения
+    """
     all_cards = list(EnglishCard.objects.all())
 
     if not all_cards:
@@ -55,7 +77,8 @@ def exercise_card(request):
         if not user_answer:
             messages.error(request, "Пожалуйста, введите ответ")
         else:
-            is_correct = (user_answer == current_card.english_word.lower())
+            # is_correct = (user_answer == current_card.english_word.lower())
+            is_correct = user_answer == current_card.english_word.lower()
             # Сохраняем статистику
             CardStatistics.objects.create(
                 card=current_card,
@@ -79,6 +102,9 @@ def exercise_card(request):
 
 
 def stats(request):
+    """
+    Функция выводящая шаблон и подсчет удачных/неудачных попыток
+    """
     # Получаем статистику по всем карточкам
     cards_stats = EnglishCard.objects.annotate(
         total_attempts=Count('statistics'),
@@ -109,11 +135,15 @@ def stats(request):
             card.success_rate = 0
 
     # Рассчитываем средний процент успеха
-    average_success_rate = round(total_success_rate / cards_with_attempts) if cards_with_attempts > 0 else 0
+    average_success_rate = (
+        round(total_success_rate / cards_with_attempts)
+        if cards_with_attempts > 0
+        else 0
+    )
 
     return render(request, 'stats.html', {
         'cards_stats': cards_stats,
         'total_cards': EnglishCard.objects.count(),
         'total_attempts': CardStatistics.objects.count(),
-        'average_success_rate': average_success_rate,
+        'average_success_rate': average_success_rate
     })
