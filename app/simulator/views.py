@@ -100,6 +100,15 @@ def exercise_card(request):
         'user_answer': user_answer,
     })
 
+def no_cards(request):
+    """
+    Функция выводящая шаблон - no_cards.html
+    Только вывод текстовой информации.
+    База данных не задействуется.
+    Предлагает пользователю добавить карточку.
+    """
+    return render(request, "no_cards.html")
+
 
 def stats(request):
     """

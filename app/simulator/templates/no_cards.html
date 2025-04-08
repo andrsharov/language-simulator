@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block page-title %}
+Нет карточек для тренировки!
+{% endblock %}
+
+{% block page-css %}
+<link href="{% static 'css/no_cards.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Карточек пока нет!</h4>
+            <p>Добавьте первую карточку, чтобы начать обучение.</p>
+            <hr>
+            <a href="{% url 'add_card' %}" class="btn btn-success">Добавить карточку</a>
+        </div>
+{% endblock %}
