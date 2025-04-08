@@ -5,6 +5,7 @@
 * [Техническое задание](#Техническое-задание)
 * [Установка и запуск проекта](#Установка-и-запуск-проекта)
 * [Наполнение первоначальными данными](#Наполнение-первоначальными-данными)
+* [Внешний вид проекта](#Внешний-вид-проекта)
 
 ## Техническое задание
 
@@ -72,8 +73,21 @@ cp -Rf ./data-example/db.sqlite3 ./app/db.sqlite3
 ```
 
 ## Внешний вид проекта
-
 <details>
 <summary>Главная страница</summary>
+
 ![index](doc/index.jpg)
+
+</details>
+<details>
+<summary>Форма тренировки карточек</summary>
+
+![exercise_card](doc/exercise_card.jpg)
+
+</details>
+<details>
+<summary>Статистика обучения</summary>
+
+![stats](doc/stats.jpg)
+
 </details>
