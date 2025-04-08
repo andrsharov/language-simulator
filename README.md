@@ -43,11 +43,11 @@ source .venv/bin/activate
 ```bash
 pip3 install -r requirements.txt
 ```
-* Запускаю мигратор
+* Запускаю миграцию
 ```bash
 python3 app/manage.py migrate
 ```
-* Создаю суперпользоваетеля
+* Создаю суперпользователя
 ```bash
 python3 app/manage.py createsuperuser
 ```
@@ -70,3 +70,10 @@ cp -Rf ./data-example/media/ ./app/
 ```bash
 cp -Rf ./data-example/db.sqlite3 ./app/db.sqlite3
 ```
+
+## Внешний вид проекта
+
+<details>
+<summary>Главная страница</summary>
+![index](doc/index.jpg)
+</details>
